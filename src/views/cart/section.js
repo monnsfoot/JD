@@ -18,7 +18,7 @@ const Section = (props) => {
             <Checkbox defaultChecked checkedColor="#ee0a24">
                 <div className={style.sectionHeader}>
                     <div>
-                        JD 乐智由我京东自营旗舰店ss<Arrow fontSize={'14px'} />
+                        JD 乐智由我京东自营旗舰店<Arrow fontSize={'14px'} />
                     </div>
                     <span>
                         优惠券

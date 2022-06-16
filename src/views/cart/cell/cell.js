@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ProductCard, Tag } from 'react-vant';
+import { ProductCard, Tag, Checkbox } from 'react-vant';
 import { Arrow } from '@react-vant/icons'
 import style from './cell.module.scss';
 
@@ -25,6 +25,7 @@ const CellJD = (props) => {
             </div>
 
         </div>
+        <Checkbox defaultChecked checkedColor="#ee0a24">
         <ProductCard
             price="158.00"
             desc="台式1600倍（可选组合套装），儿童显微镜"
@@ -48,6 +49,8 @@ const CellJD = (props) => {
                 </div>
             }
         />
+        </Checkbox>
+
     </div>
 
     );
