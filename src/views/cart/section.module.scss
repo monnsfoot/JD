@@ -1,0 +1,35 @@
+.section {
+    position: relative;
+    top: 40px;
+    bottom: 80px;
+    margin-bottom: 10px;
+    background-color: #FFF;
+    border-radius: 10px;
+    padding: 10px 10px 0;
+
+    .sectionHeader {
+        display: flex;
+        padding: 10px 0;
+        width: calc(100vw - 80px);
+        justify-content: space-between;
+
+        span {
+            background: #fcedeb;
+            border-radius: .45rem;
+            color: #f2270c;
+            display: block;
+            font-size: 10px;
+            padding: 0 3px;
+            border-radius: 10px;
+        }
+
+        div {
+            color: #333;
+            flex: 1;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+    }
+
+}

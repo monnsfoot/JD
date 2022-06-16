@@ -1,0 +1,116 @@
+.item {
+    background-color: #fff;
+
+    .itemTitle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 31px;
+
+        .leftItemTitle {
+            color: #333;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .leftItemTitle::before {
+            display: inline-block;
+            font-size: 8px;
+            content: '满减';
+            color: #fff;
+            background-color: rgb(233, 79, 79);
+            border-radius: 2px;
+            margin-right: 10px;
+            height: 100%;
+            line-height: 100%;
+            padding: 3px 2px;
+        }
+
+        .rightItemTitle {
+            color: #6a6a6a;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+    }
+
+}
+
+.calculatorContianer {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    border: #e5e5e5 solid 1px;
+    border-radius: 10px;
+    height: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 0 10px 5px 10px;
+
+    .minus {
+        margin: 0;
+        padding: 0;
+        width: 20x;
+        height: 20px;
+        font-size: 14px;
+        line-height: 20px;
+        vertical-align: text-bottom;
+    }
+
+    .plus {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        width: 20x;
+        height: 20px;
+        font-size: 14px;
+        vertical-align: top;
+
+    }
+
+    input {
+        vertical-align: top;
+        margin: 0 5px;
+        padding: 0;
+        appearance: none;
+        background-color: #fff;
+        border: none;
+        border-left: #e5e5e5 solid 1px;
+        border-right: #e5e5e5 solid 1px;
+        color: #262626;
+        font-display: swap;
+        font-family: JDZH-Regular;
+        font-size: 12px;
+        width: 20px;
+        text-align: center;
+    }
+}
+
+:global {
+    .rv-product-card__header::before {
+        background-image: url(//jstatic.3.cn/static/icon_unselected_jd@2x.af34ea16.png);
+        background-size: 20px 20px;
+        border-radius: 50%;
+        content: "";
+        width: 31px;
+        background-position-y: center;
+        background-position-x: center;
+
+        background-repeat: no-repeat;
+    }
+
+    .rv-product-card__header:hover::before {
+        background-image: url(//jstatic.3.cn/static/icon_selected_jd@2x.9edc3756.png);
+        background-position-y: center;
+        background-repeat: no-repeat;
+
+    }
+
+    .rv-product-card {
+        padding-left: 0;
+        padding-top: 0;
+        background-color: #fff;
+        border-bottom: solid 1px #e5e5e5;
+        margin-bottom: 20px;
+    }
+}

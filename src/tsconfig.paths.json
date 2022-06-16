@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@views/*": ["./src/views/*"],
+            "@router/*": ["./src/router/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@component/*": ["./src/component/*"],
+            "@service/*": ["./src/service/*"],
+            "@model/*": ["./src/model/*"],
+        },
+        "noImplicitThis": false
+    }
+}
