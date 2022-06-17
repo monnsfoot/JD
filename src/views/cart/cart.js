@@ -6,17 +6,13 @@ import { Arrow } from '@react-vant/icons'
 import  Section  from './section'
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
-  const [productNumber, setProductNumber] = useState(1);
-  const increase = (index) => {
-    setProductNumber(productNumber + 1);
-  }
-  const decrease = (index) => {
-
-    productNumber > 0 && setProductNumber(productNumber - 1);
-  }
-
   const sectionList = [['京东自营', '淘宝', '家电旗舰店', '酒水饮料旗舰店'], ['京东自营', '淘宝', '家电旗舰店', '酒水饮料旗舰店']];
+  const [cartChecked, setCartChecked] = useState(false);
 
+  const cartCheck = (val) => {
+    console.log('cart________',val);
+    setCartChecked(val);
+  }
   return (
     // eslint-disable-next-line array-callback-return
 
@@ -35,7 +31,7 @@ export default () => {
       </div>
       {
         sectionList.map(cartList =>
-          <Section cartList={cartList} />
+          <Section cartChecked={cartChecked} cartList={cartList} />
         )
       }
           <div className={style.footer}>
@@ -43,7 +39,7 @@ export default () => {
           price="3050"
           buttonText="去结算"
         >
-          <Checkbox>全选</Checkbox>
+          <Checkbox onChange={cartCheck} checkedColor="#ee0a24">全选</Checkbox>
       </SubmitBar>
       </div>
 

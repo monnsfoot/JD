@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProductCard, Tag, Checkbox } from 'react-vant';
 import { Arrow } from '@react-vant/icons'
 import style from './cell.module.scss';
@@ -6,6 +6,12 @@ import style from './cell.module.scss';
 const CellJD = (props) => {
 
     const [productNumber, setProductNumber] = useState(1);
+    const [cellChecked, setCellChecked] = useState(props.cellChecked);
+    useEffect(() => {
+        console.log('*********');
+        setCellChecked(props.cellChecked);
+    }, [props.cellChecked]);
+
     const increase = (index) => {
       setProductNumber(productNumber + 1);
     }
@@ -13,7 +19,9 @@ const CellJD = (props) => {
   
       productNumber > 0 && setProductNumber(productNumber - 1);
     }
-
+    const cellCheck = (val) => {
+        setCellChecked(val)
+    }
     return (
         <div className={style.item}>
         <div className={style.itemTitle}>
@@ -25,7 +33,7 @@ const CellJD = (props) => {
             </div>
 
         </div>
-        <Checkbox defaultChecked checkedColor="#ee0a24">
+        <Checkbox checked={cellChecked} onChange={cellCheck} checkedColor="#ee0a24">
         <ProductCard
             price="158.00"
             desc="台式1600倍（可选组合套装），儿童显微镜"
