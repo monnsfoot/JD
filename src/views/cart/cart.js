@@ -6,12 +6,36 @@ import { Arrow } from '@react-vant/icons'
 import  Section  from './section'
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
-  const sectionList = [['京东自营', '淘宝', '家电旗舰店', '酒水饮料旗舰店'], ['京东自营', '淘宝', '家电旗舰店', '酒水饮料旗舰店']];
+  const List = [{sectionChecked: false, content:[{name:'京东自营', checked:false}, {name:'淘宝', checked:false}, {name:'家电旗舰店', checked:false}, {name:'酒水饮料旗舰店', checked:false}]}, {sectionChecked: false, content:[{name:'京东自营', checked:false}, {name:'淘宝', checked:false}, {name:'家电旗舰店', checked:false}, {name:'酒水饮料旗舰店', checked:false}]}];
   const [cartChecked, setCartChecked] = useState(false);
+  const [sectionList, setSectionList] = useState(List);
 
+  //总选择
   const cartCheck = (val) => {
-    console.log('cart________',val);
+    // sectionList.map(item => item.sectionChecked = val);
+    sectionList.map(item => { 
+      item.content.map(item => item.checked = val) 
+      item.sectionChecked = val;
+      return item;
+    });
     setCartChecked(val);
+    setSectionList([...sectionList]);
+  }
+
+  //每个section选择在父组件代理方法
+  const handleCart = (val, index) => {
+    sectionList[index].sectionChecked = val;
+    console.log('handleCart', index, val);
+    setCartChecked(val);
+
+    if (val) {
+        const partChosen = sectionList.some(item => !item.sectionChecked);
+        partChosen ? setCartChecked(false) : setCartChecked(true);
+
+    } else {
+      setCartChecked(false);
+    }
+    setSectionList([...sectionList]);
   }
   return (
     // eslint-disable-next-line array-callback-return
@@ -30,8 +54,8 @@ export default () => {
         </div>
       </div>
       {
-        sectionList.map(cartList =>
-          <Section cartChecked={cartChecked} cartList={cartList} />
+        sectionList.map((sectionGroup, index) =>
+          <Section sectionGroup={sectionGroup} sectionIndex={index} handleCart={handleCart}/>
         )
       }
           <div className={style.footer}>
@@ -39,7 +63,7 @@ export default () => {
           price="3050"
           buttonText="去结算"
         >
-          <Checkbox onChange={cartCheck} checkedColor="#ee0a24">全选</Checkbox>
+          <Checkbox onChange={cartCheck} checked={cartChecked} checkedColor="#ee0a24">全选</Checkbox>
       </SubmitBar>
       </div>
 
