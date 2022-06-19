@@ -5,31 +5,38 @@ import style from './section.module.scss';
 import CellJD from './cell/cell.js';
 const Section = (props) => {
     const [sectionChecked, setSectionChecked] = useState(props.sectionGroup.sectionChecked);
+    const [cartList, setCartList] = useState(props.sectionGroup.content);
+
     useEffect(() => {
         setSectionChecked(props.sectionGroup.sectionChecked);
     }, [props.sectionGroup.sectionChecked])
-    const [cartList, setCartList] = useState(props.sectionGroup.content);
+
     const checkSection = (val) => {
         setSectionChecked(val);
-        cartList.map(item => item.sectionChecked = val);
-        props.handleCart(val, props.sectionIndex);
+        cartList.map(item => item.checked = val);
+        props.handleCart(val, props.sectionIndex, cartList);
         setCartList([...cartList]);
+        console.log('cartList-checkSection', cartList);
     }
     const handleSection = (val, index) => {
         cartList[index].checked = val;
-        console.log('handleSectionindex', index);
-        console.log('cartList', cartList);
-
+        let checkedTemp = val
         if (val) {
             const partChosen = cartList.some(item => !item.checked);
             console.log('partChosen', partChosen);
             partChosen ? setSectionChecked(false) : setSectionChecked(true);
-
+            checkedTemp = !partChosen;
         } else {
+            checkedTemp = false
             setSectionChecked(false);
         }
         setCartList([...cartList]);
+        props.handleCart(checkedTemp, props.sectionIndex, cartList);
+        console.log('cartList-handleSection', cartList);
+
     }
+
+
     return (
         <div className={style.section}>
             <Checkbox onChange={checkSection} checked={sectionChecked} checkedColor="#ee0a24">

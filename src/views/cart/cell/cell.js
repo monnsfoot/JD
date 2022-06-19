@@ -5,7 +5,6 @@ import style from './cell.module.scss';
 
 const CellJD = (props) => {
 
-    console.log('cellinit');
     const [productNumber, setProductNumber] = useState(1);
 
     const increase = (index) => {
