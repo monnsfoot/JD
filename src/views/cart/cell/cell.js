@@ -55,10 +55,10 @@ const CellJD = (props) => {
             </div>
             <Checkbox checked={props.item.checked} onChange={cellCheck} checkedColor="#ee0a24">
                 <ProductCard
-                    price={props.item.price}
+                    price={props.item.price * 0.01}
                     desc="台式1600倍（可选组合套装），儿童显微镜"
-                    title="乐智由我 儿童显微镜玩具高清双光源1600倍小学生生日礼物男孩女孩8-10岁以上科学实验放大镜"
-                    thumb="//img10.360buyimg.com/mobilecms/s234x234_jfs/t1/116382/19/20754/279599/62208239E762eb7a3/0bc7951538dbef75.jpg!q70.dpg.webp"
+                    title={props.item.name}
+                    thumb={props.item.imgUrl}
                     tags={
                         <div>
                             <Tag plain color='red' style={{ marginRight: 5, fontSize: 8 }}>
