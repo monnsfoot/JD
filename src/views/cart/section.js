@@ -16,10 +16,28 @@ const Section = (props) => {
         cartList.map(item => item.checked = val);
         props.handleCart(val, props.sectionIndex, cartList);
         setCartList([...cartList]);
+        const sectionPrice = cartList.reduce((total, item) => {
+            if(item.checked) {
+                return total + item.sumPrice;
+            } else {
+                return total + 0;
+            }
+        }, 0);
+        props.handleCart(val, props.sectionIndex, cartList, sectionPrice);
         console.log('cartList-checkSection', cartList);
     }
-    const handleSection = (val, index) => {
+    const handleSection = (val, index, sumPrice) => {
         cartList[index].checked = val;
+        cartList[index].sumPrice = sumPrice;
+        const sectionPrice = cartList.reduce((total, item) => {
+            if(item.checked) {
+                return total + item.sumPrice;
+            } else {
+                return total + 0;
+            }
+        }, 0);
+        console.log('cartList-handleSection++++++', cartList,sectionPrice);
+        
         let checkedTemp = val
         if (val) {
             const partChosen = cartList.some(item => !item.checked);
@@ -31,9 +49,7 @@ const Section = (props) => {
             setSectionChecked(false);
         }
         setCartList([...cartList]);
-        props.handleCart(checkedTemp, props.sectionIndex, cartList);
-        console.log('cartList-handleSection', cartList);
-
+        props.handleCart(checkedTemp, props.sectionIndex, cartList, sectionPrice);
     }
 
 
@@ -53,7 +69,7 @@ const Section = (props) => {
                 {
                     // eslint-disable-next-line array-callback-return
                     cartList.map((item, index) =>
-                        <CellJD item={item} index={index} handleSection={handleSection} />
+                        <CellJD key={index} item={item} index={index} handleSection={handleSection} />
                     )
                 }
             </div>
