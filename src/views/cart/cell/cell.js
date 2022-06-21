@@ -5,26 +5,34 @@ import style from './cell.module.scss';
 
 const CellJD = (props) => {
 
-    const [productNumber, setProductNumber] = useState(1);
+    const [productNumber, setProductNumber] = useState(props.item.num);
     const [productChecked, setProductChecked] = useState(props.item.checked);
     useEffect(() => {
         const sumPrice = props.item.checked ? props.item.price * productNumber : 0;
-        props.handleSection( props.item.checked, props.index, sumPrice);
+        props.handleSection( props.item.checked, props.index, sumPrice, productNumber);
     }, [ props.item.checked]);
+
     const increase = (e) => {
         e.stopPropagation();
-        const sumPrice = productChecked ? props.item.price * (productNumber + 1) : 0;
-        props.handleSection(productChecked, props.index, sumPrice);
-
-        setProductNumber(productNumber + 1);
-
+        setProductNumber( 
+            productNumber => {
+                const num = productNumber + 1;
+                const sumPrice = productChecked ? props.item.price * num : 0;
+                props.handleSection(productChecked, props.index, sumPrice, num);
+                console.log('cartList-increase num', num);
+                return num;
+            }
+        );
     }
     const decrease = (e) => {
         e.stopPropagation();
-        const sumPrice = productChecked ? props.item.price * (productNumber - 1) : 0;
-        props.handleSection(productChecked, props.index, sumPrice);
-
-        productNumber > 0 && setProductNumber(productNumber - 1);
+        productNumber > 0 && setProductNumber(
+            productNumber => {
+                const num = productNumber - 1;
+                const sumPrice = productChecked ? props.item.price * num : 0;
+                props.handleSection(productChecked, props.index, sumPrice, num);
+                return num;
+        });
 
     }
     const inputClick = (e) => {
@@ -35,8 +43,7 @@ const CellJD = (props) => {
         // val ? props.handleSection(val) : props.handleSection(false);
         setProductChecked(val);
         const sumPrice = val ? props.item.price * productNumber : 0;
-        console.log('sumPrice', sumPrice, 'productNumber', productNumber);
-        props.handleSection(val, props.index, sumPrice);
+        props.handleSection(val, props.index, sumPrice, productNumber);
     }
     const inputChange = (e) => {
         e.stopPropagation();

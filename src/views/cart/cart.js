@@ -4,10 +4,12 @@ import style from './cart.module.scss';
 import { Arrow } from '@react-vant/icons'
 import Section from './section'
 // eslint-disable-next-line import/no-anonymous-default-export
-export default () => {
+export default (props) => {
   const List = [
     { 
+      sectionTitle: '京东物流',
       sectionChecked: false,
+      checkedNum: 0,
       sectionPrice: 0,
       content: [
         {
@@ -33,7 +35,7 @@ export default () => {
         {
             imgUrl:"http://img10.360buyimg.com/mobilecms/s234x234_jfs/t1/85493/2/29571/324040/62adfae4E69e39859/61f2dcc593b0e341.jpg",
             name:"容声（Ronshen）波轮洗衣机全自动10公斤家用大容量 10大洗衣程序 节能低噪 健康桶自洁 RB100D1526 以旧换新",
-            num:2,
+            num:1,
             price:81900,
             plusPrice:1,
             plusPriceStatus:false,
@@ -84,7 +86,9 @@ export default () => {
     ]
     },
     { 
+      sectionTitle: '京东物流',
       sectionChecked: false,
+      checkedNum: 0,
       sectionPrice: 0,
       content: [
         {
@@ -110,7 +114,7 @@ export default () => {
         {
             imgUrl:"http://img10.360buyimg.com/mobilecms/s234x234_jfs/t1/85493/2/29571/324040/62adfae4E69e39859/61f2dcc593b0e341.jpg",
             name:"容声（Ronshen）波轮洗衣机全自动10公斤家用大容量 10大洗衣程序 节能低噪 健康桶自洁 RB100D1526 以旧换新",
-            num:2,
+            num:1,
             price:81900,
             plusPrice:1,
             plusPriceStatus:false,
@@ -184,12 +188,20 @@ export default () => {
     setCartChecked(val);
     setSectionList([...sectionList]);
   }
+  const goToPay = () => {
+    console.log("去支付");
+    const data = {totalPrice: totalPrice, sectionList: sectionList};
+    console.log('去支付',data);
+    props.history.push({pathname:'/orderedit', query:data});
+  }
 
   //每个section选择在父组件代理方法
-  const handleCart = (val, index, cartList, sectionPrice) => {
+  const handleCart = (val, index, cartList, sectionPrice, sectionCheckedNum) => {
     sectionList[index].sectionChecked = val;
     sectionList[index].content = cartList;
     sectionList[index].sectionPrice = sectionPrice;
+    sectionList[index].checkedNum = sectionCheckedNum;
+
 
     setCartChecked(val);
     const priceTemp = sectionList.reduce((total, item) => {
@@ -207,6 +219,7 @@ export default () => {
 
     }
     setSectionList([...sectionList]);
+    console.log('setSectionListCART.JS', sectionList);
   }
   return (
     // eslint-disable-next-line array-callback-return
@@ -233,6 +246,7 @@ export default () => {
           <SubmitBar
             price={totalPrice}
             buttonText="去结算"
+            onSubmit={goToPay}
           >
             <Checkbox onChange={cartCheck} checked={cartChecked} checkedColor="#ee0a24">全选</Checkbox>
           </SubmitBar>

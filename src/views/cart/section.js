@@ -14,30 +14,32 @@ const Section = (props) => {
     const checkSection = (val) => {
         setSectionChecked(val);
         cartList.map(item => item.checked = val);
-        props.handleCart(val, props.sectionIndex, cartList);
         setCartList([...cartList]);
         const sectionPrice = cartList.reduce((total, item) => {
-            if(item.checked) {
+            if (item.checked) {
                 return total + item.sumPrice;
             } else {
                 return total + 0;
             }
         }, 0);
-        props.handleCart(val, props.sectionIndex, cartList, sectionPrice);
+        props.handleCart(val, props.sectionIndex, cartList, sectionPrice, secctionCheckedNumFn([...cartList]));
         console.log('cartList-checkSection', cartList);
     }
-    const handleSection = (val, index, sumPrice) => {
+    const handleSection = (val, index, sumPrice, productNumber) => {
         cartList[index].checked = val;
         cartList[index].sumPrice = sumPrice;
+        cartList[index].checkedNum = productNumber;
+
         const sectionPrice = cartList.reduce((total, item) => {
-            if(item.checked) {
+            if (item.checked) {
                 return total + item.sumPrice;
             } else {
                 return total + 0;
             }
         }, 0);
-        console.log('cartList-handleSection++++++', cartList,sectionPrice);
-        
+
+        console.log('cartList-handleSection++++++ productNumber', productNumber, 'sectionPrice', sectionPrice);
+
         let checkedTemp = val
         if (val) {
             const partChosen = cartList.some(item => !item.checked);
@@ -48,11 +50,25 @@ const Section = (props) => {
             checkedTemp = false
             setSectionChecked(false);
         }
-        setCartList([...cartList]);
-        props.handleCart(checkedTemp, props.sectionIndex, cartList, sectionPrice);
+        setCartList(
+            cartList => {
+                props.handleCart(checkedTemp, props.sectionIndex, cartList, sectionPrice, secctionCheckedNumFn([...cartList]));
+                return [...cartList]
+            }
+        );
     }
 
+    const secctionCheckedNumFn = (list) => {
 
+        const sectionCheckedNum = list.reduce((total, item) => {
+            if (item.checked) {
+                return total + item.checkedNum;
+            } else {
+                return total + 0;
+            }
+        }, 0);
+        return sectionCheckedNum;
+    }
     return (
         <div className={style.section}>
             <Checkbox onChange={checkSection} checked={sectionChecked} checkedColor="#ee0a24">

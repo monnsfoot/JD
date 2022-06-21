@@ -22,6 +22,7 @@ const themeVars = {
   productCardTextColor: '#1a1a1a',
   productCardThumbSize: '100px',
   submitBarZIndex: '1',
+  // TagFontSize: '8px',
 
 };
 
