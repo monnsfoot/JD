@@ -3,7 +3,6 @@ import { Tag, Checkbox } from 'react-vant';
 import { Arrow, InfoO } from '@react-vant/icons'
 import style from './orderEdit.module.scss';
 const orderEdit = (props) => {
-    console.log(' query_______________', props.location.query);
     const { totalPrice, sectionList } = props.location.query;
 
     return (

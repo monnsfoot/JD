@@ -90,7 +90,6 @@ const Home = (props) => {
                 //向下滚动
                 myRef.current.className = style.movingSearch;
                 myRef.current.style.width = clientWidth - scrollTop * 2.2 + 'px';
-                console.log('*****************', myRef.current);
 
                 myRef.current.style.top = 53 - scrollTop + 'px';
 
@@ -102,7 +101,6 @@ const Home = (props) => {
                 myRef.current.style.top = 53 - scrollTop + 'px';
 
             }
-            console.log(clientHeight, scrollTop, scrollHeight);
             ctx.setState({ style: { display: "block", } })
         } else {
             ctx.setState({ style: { display: "none", } })

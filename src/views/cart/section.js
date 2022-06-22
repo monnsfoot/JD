@@ -4,12 +4,16 @@ import { Arrow } from '@react-vant/icons'
 import style from './section.module.scss';
 import CellJD from './cell/cell.js';
 const Section = (props) => {
+    let idArray = [];
     const [sectionChecked, setSectionChecked] = useState(props.sectionGroup.sectionChecked);
     const [cartList, setCartList] = useState(props.sectionGroup.content);
 
     useEffect(() => {
         setSectionChecked(props.sectionGroup.sectionChecked);
     }, [props.sectionGroup.sectionChecked])
+    useEffect(() => {
+        setCartList(props.sectionGroup.content);
+    }, [props.sectionGroup.content])
 
     const checkSection = (val) => {
         setSectionChecked(val);
@@ -22,28 +26,27 @@ const Section = (props) => {
                 return total + 0;
             }
         }, 0);
-        props.handleCart(val, props.sectionIndex, cartList, sectionPrice, secctionCheckedNumFn([...cartList]));
-        console.log('cartList-checkSection', cartList);
+        props.handleCart(val, props.sectionIndex, cartList, sectionPrice, secctionCheckedNumFn([...cartList]), idArray);
     }
     const handleSection = (val, index, sumPrice, productNumber) => {
         cartList[index].checked = val;
         cartList[index].sumPrice = sumPrice;
         cartList[index].checkedNum = productNumber;
 
+        idArray = [];
         const sectionPrice = cartList.reduce((total, item) => {
             if (item.checked) {
+                idArray.push(item.productId);
                 return total + item.sumPrice;
             } else {
                 return total + 0;
             }
         }, 0);
 
-        console.log('cartList-handleSection++++++ productNumber', productNumber, 'sectionPrice', sectionPrice);
 
         let checkedTemp = val
         if (val) {
             const partChosen = cartList.some(item => !item.checked);
-            console.log('partChosen', partChosen);
             partChosen ? setSectionChecked(false) : setSectionChecked(true);
             checkedTemp = !partChosen;
         } else {
@@ -52,7 +55,7 @@ const Section = (props) => {
         }
         setCartList(
             cartList => {
-                props.handleCart(checkedTemp, props.sectionIndex, cartList, sectionPrice, secctionCheckedNumFn([...cartList]));
+                props.handleCart(checkedTemp, props.sectionIndex, cartList, sectionPrice, secctionCheckedNumFn([...cartList]), idArray);
                 return [...cartList]
             }
         );

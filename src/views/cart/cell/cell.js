@@ -19,7 +19,6 @@ const CellJD = (props) => {
                 const num = productNumber + 1;
                 const sumPrice = productChecked ? props.item.price * num : 0;
                 props.handleSection(productChecked, props.index, sumPrice, num);
-                console.log('cartList-increase num', num);
                 return num;
             }
         );
